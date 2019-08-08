@@ -86,14 +86,25 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/generator.js":
+/*!**************************!*\
+  !*** ./src/generator.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("class Generator {\n\tconstructor() {\n\t\tconsole.log('Hello World');\n\t}\n\n\tstart() {\n\t\tconsole.log('Started');\n\t}\n}\n\nmodule.exports = Generator;\n\n\n//# sourceURL=webpack:///./src/generator.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("console.log('Hello World');\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const Generator = __webpack_require__(/*! ./generator */ \"./src/generator.js\");\ndocument.addEventListener('DOMContentLoaded', function() {\n\tconst canvasEl = document.getElementsByTagName('canvas')[0];\n\tcanvasEl.width = Generator.DIM_X;\n\tcanvasEl.height = Generator.DIM_Y;\n\tconst ctx = canvasEl.getContext('2d');\n\tconst generator = new Generator(ctx);\n\tgenerator.start();\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
