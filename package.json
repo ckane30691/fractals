@@ -1,0 +1,17 @@
+{
+	"name": "fractals",
+	"version": "1.0.0",
+	"description": "This genrates and visualizes fractals",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "webpack --watch"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"webpack": "^4.39.1",
+		"webpack-cli": "^3.3.6"
+	}
+}
