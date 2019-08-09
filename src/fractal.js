@@ -2,16 +2,27 @@ const Equations = require('./equations');
 class Fractal {
 	constructor(options = {}) {
 		this.options = options;
+		this.magnificationFactor = options.magnificationFactor;
 		switch (options.type) {
 			default:
 				this.fractalBody = this.makeMandlebrot();
+				this.panX = 2;
+				this.panY = 1.5;
 		}
 	}
 
+	tick() {
+		this.magnificationFactor += 2;
+		// this.panX += 0.2;
+
+		this.fractalBody = this.makeMandlebrot();
+		// debugger;
+	}
+
 	makeMandlebrot() {
-		let magnificationFactor = this.options.magnificationFactor || 600;
-		let panX = 0;
-		let panY = 0;
+		let magnificationFactor = this.magnificationFactor;
+		let panX = this.panX;
+		let panY = this.panY;
 		let result = [];
 
 		for (let x = 0; x < this.options.width; x++) {
@@ -20,7 +31,7 @@ class Fractal {
 					x / magnificationFactor - panX,
 					y / magnificationFactor - panY
 				);
-				debugger;
+
 				if (belongsToSet) {
 					result.push([ x, y ]);
 				}

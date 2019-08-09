@@ -11,6 +11,7 @@ class Generator {
 
 	addObjects() {
 		let options = {};
+		options.magnificationFactor = 200;
 		options.width = Generator.DIM_X;
 		options.height = Generator.DIM_Y;
 
@@ -34,7 +35,11 @@ class Generator {
 	}
 
 	tick() {
-		this.allObjects.forEach((object) => object.draw(this.ctx));
+		this.ctx.clearRect(0, 0, Generator.DIM_X, Generator.DIM_Y);
+		this.allObjects.forEach((object) => {
+			object.tick();
+			object.draw(this.ctx);
+		});
 	}
 }
 
