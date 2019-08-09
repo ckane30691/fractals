@@ -86,14 +86,36 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/equations.js":
+/*!**************************!*\
+  !*** ./src/equations.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// https://progur.com/2017/02/create-mandelbrot-fractal-javascript.html\n\nconst Equations = {\n\tcheckIfBelongsToMandelbrotSet(x, y) {\n\t\tlet realComponentOfResult = x;\n\t\tlet imaginaryComponentOfResult = y;\n\n\t\tfor (let i = 0; i < 10; i++) {\n\t\t\tlet tempRealComponent =\n\t\t\t\trealComponentOfResult * realComponentOfResult -\n\t\t\t\timaginaryComponentOfResult * imaginaryComponentOfResult +\n\t\t\t\tx;\n\n\t\t\tlet tempImaginaryComponent =\n\t\t\t\t2 * realComponentOfResult * imaginaryComponentOfResult + y;\n\n\t\t\trealComponentOfResult = tempRealComponent;\n\t\t\timaginaryComponentOfResult = tempImaginaryComponent;\n\t\t}\n\n\t\tif (realComponentOfResult * imaginaryComponentOfResult < 5) return true;\n\t\treturn false;\n\t}\n};\n\nmodule.exports = Equations;\n\n\n//# sourceURL=webpack:///./src/equations.js?");
+
+/***/ }),
+
+/***/ "./src/fractal.js":
+/*!************************!*\
+  !*** ./src/fractal.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const Equations = __webpack_require__(/*! ./equations */ \"./src/equations.js\");\nclass Fractal {\n\tconstructor(options = {}) {\n\t\tthis.options = options;\n\t\tswitch (options.type) {\n\t\t\tdefault:\n\t\t\t\tthis.fractalBody = this.makeMandlebrot();\n\t\t}\n\t}\n\n\tmakeMandlebrot() {\n\t\tlet magnificationFactor = this.options.magnificationFactor || 600;\n\t\tlet panX = 0;\n\t\tlet panY = 0;\n\t\tlet result = [];\n\n\t\tfor (let x = 0; x < this.options.width; x++) {\n\t\t\tfor (let y = 0; y < this.options.height; y++) {\n\t\t\t\tlet belongsToSet = Equations.checkIfBelongsToMandelbrotSet(\n\t\t\t\t\tx / magnificationFactor - panX,\n\t\t\t\t\ty / magnificationFactor - panY\n\t\t\t\t);\n\t\t\t\tdebugger;\n\t\t\t\tif (belongsToSet) {\n\t\t\t\t\tresult.push([ x, y ]);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn result;\n\t}\n\n\tdraw(ctx) {\n\t\tthis.fractalBody.forEach((point) => {\n\t\t\tlet [ x, y ] = point;\n\t\t\tctx.fillRect(x, y, 1, 1);\n\t\t});\n\t}\n}\n\nmodule.exports = Fractal;\n\n\n//# sourceURL=webpack:///./src/fractal.js?");
+
+/***/ }),
+
 /***/ "./src/generator.js":
 /*!**************************!*\
   !*** ./src/generator.js ***!
   \**************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("class Generator {\n\tconstructor() {\n\t\tconsole.log('Hello World');\n\t}\n\n\tstart() {\n\t\tconsole.log('Started');\n\t}\n}\n\nmodule.exports = Generator;\n\n\n//# sourceURL=webpack:///./src/generator.js?");
+eval("const Fractal = __webpack_require__(/*! ./fractal */ \"./src/fractal.js\");\n\nclass Generator {\n\tconstructor(ctx) {\n\t\tthis.frame = 0;\n\t\tthis.allObjects = [];\n\t\tthis.ctx = ctx;\n\t\tthis.addObjects();\n\t\tthis.step = this.step.bind(this);\n\t}\n\n\taddObjects() {\n\t\tlet options = {};\n\t\toptions.width = Generator.DIM_X;\n\t\toptions.height = Generator.DIM_Y;\n\n\t\tlet mandleBrotFractal = new Fractal(options);\n\t\tthis.allObjects.push(mandleBrotFractal);\n\t}\n\n\tstart() {\n\t\tthis.frame = requestAnimationFrame(this.step);\n\t\t//should generate a fractal\n\t}\n\n\tpause() {\n\t\tcancelAnimationFrame(this.frame);\n\t}\n\n\tstep() {\n\t\t// console.log('stepped');\n\t\tthis.frame = requestAnimationFrame(this.step);\n\t\tthis.tick();\n\t}\n\n\ttick() {\n\t\tthis.allObjects.forEach((object) => object.draw(this.ctx));\n\t}\n}\n\nGenerator.DIM_X = 1000;\nGenerator.DIM_Y = 600;\n\nmodule.exports = Generator;\n\n\n//# sourceURL=webpack:///./src/generator.js?");
 
 /***/ }),
 
