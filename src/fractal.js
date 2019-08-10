@@ -47,7 +47,7 @@ class Fractal {
 			// let [ x, y, belongsToSet ] = point;
 			// if (belongsToSet == 0) {
 			ctx.fillStyle = '#000';
-			ctx.fillRect(point[0] / 800, point[1] / 800, 1 / 800, 1 / 800); // Draw a black pixel
+			ctx.fillRect(point[0] / 1000, point[1] / 600, 1 / 1000, 1 / 600); // Draw a black pixel
 			// debugger;
 			// } else {
 			// 	debugger;
