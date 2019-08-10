@@ -4,8 +4,9 @@ const Equations = {
 	checkIfBelongsToMandelbrotSet(x, y) {
 		let realComponentOfResult = x;
 		let imaginaryComponentOfResult = y;
+		let maxIterations = 100;
 
-		for (let i = 0; i < 100; i++) {
+		for (let i = 0; i < maxIterations; i++) {
 			let tempRealComponent =
 				realComponentOfResult * realComponentOfResult -
 				imaginaryComponentOfResult * imaginaryComponentOfResult +
@@ -16,10 +17,11 @@ const Equations = {
 
 			realComponentOfResult = tempRealComponent;
 			imaginaryComponentOfResult = tempImaginaryComponent;
+			if (realComponentOfResult * imaginaryComponentOfResult > 5)
+				return i / maxIterations * 100;
 		}
 
-		if (realComponentOfResult * imaginaryComponentOfResult < 5) return true;
-		return false;
+		return 0;
 	}
 };
 

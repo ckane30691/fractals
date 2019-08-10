@@ -31,10 +31,7 @@ class Fractal {
 					x / magnificationFactor - panX,
 					y / magnificationFactor - panY
 				);
-
-				if (belongsToSet) {
-					result.push([ x, y ]);
-				}
+				result.push([ x, y, belongsToSet ]);
 			}
 		}
 		return result;
@@ -42,8 +39,14 @@ class Fractal {
 
 	draw(ctx) {
 		this.fractalBody.forEach((point) => {
-			let [ x, y ] = point;
-			ctx.fillRect(x, y, 1, 1);
+			let [ x, y, belongsToSet ] = point;
+			if (belongsToSet == 0) {
+				ctx.fillStyle = '#000';
+				ctx.fillRect(x, y, 1, 1); // Draw a black pixel
+			} else {
+				ctx.fillStyle = 'hsl(0, 100%, ' + belongsToSet + '%)';
+				ctx.fillRect(x, y, 1, 1); // Draw a colorful pixel
+			}
 		});
 	}
 }
