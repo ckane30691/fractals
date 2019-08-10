@@ -12,9 +12,9 @@ class Fractal {
 	}
 
 	tick() {
-		this.magnificationFactor += 2;
-		// this.panX += 0.2;
-
+		this.magnificationFactor += 1;
+		this.panX += 0.002;
+		this.panY -= 0.002;
 		this.fractalBody = this.makeMandlebrot();
 		// debugger;
 	}

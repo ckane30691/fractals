@@ -5,7 +5,7 @@ const Equations = {
 		let realComponentOfResult = x;
 		let imaginaryComponentOfResult = y;
 
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 100; i++) {
 			let tempRealComponent =
 				realComponentOfResult * realComponentOfResult -
 				imaginaryComponentOfResult * imaginaryComponentOfResult +
