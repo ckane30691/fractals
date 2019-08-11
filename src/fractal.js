@@ -16,7 +16,7 @@ class Fractal {
 		// this.panX += 0.002;
 		// this.panY -= 0.002;
 		// replace with an update function
-		this.fractalBody = this.makeMandlebrot();
+		this.fractalBody = this.makeMandlebrot('replica');
 		// debugger;
 	}
 
@@ -39,7 +39,7 @@ class Fractal {
 		return result;
 	}
 
-	draw(ctx, scale = 1) {
+	draw(ctx) {
 		// debugger;
 		// console.log(this.fractalBody);
 
