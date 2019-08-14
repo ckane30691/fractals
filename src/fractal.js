@@ -15,11 +15,8 @@ class Fractal {
 		this.magnificationFactor *= scale;
 		this.panX = panX;
 		this.panY = panY;
-		// this.panX += 0.002;
-		// this.panY -= 0.002;
 		// replace with an update function
 		this.fractalBody = this.makeMandlebrot('replica');
-		// debugger;
 	}
 
 	makeMandlebrot(replica) {
@@ -35,7 +32,7 @@ class Fractal {
 					y / magnificationFactor - panY,
 					replica
 				);
-				if (belongsToSet <= 1) result.push([ x, y, belongsToSet ]);
+				if (belongsToSet <= 2) result.push([ x, y, belongsToSet ]);
 				// result.push([ x, y, belongsToSet ]);
 			}
 		}
@@ -58,7 +55,7 @@ class Fractal {
 				); // Draw a black pixel
 				// debugger;
 			} else {
-				debugger;
+				// debugger;
 				ctx.fillStyle = 'hsl(50, 100%, ' + belongsToSet + '%)';
 				ctx.fillRect(
 					point[0] / 1000,
