@@ -5,14 +5,16 @@ class Fractal {
 		this.magnificationFactor = options.magnificationFactor;
 		switch (options.type) {
 			default:
-				this.panX = 2;
-				this.panY = 1.5;
-				this.fractalBody = this.makeMandlebrot();
+				this.panX = options.panX;
+				this.panY = options.panY;
+				this.fractalBody = this.makeMandlebrot('replica');
 		}
 	}
 
-	tick() {
-		// this.magnificationFactor += 5;
+	tick(scale, panX, panY) {
+		this.magnificationFactor *= scale;
+		this.panX = panX;
+		this.panY = panY;
 		// this.panX += 0.002;
 		// this.panY -= 0.002;
 		// replace with an update function
@@ -33,7 +35,8 @@ class Fractal {
 					y / magnificationFactor - panY,
 					replica
 				);
-				if (belongsToSet === 0) result.push([ x, y, belongsToSet ]);
+				if (belongsToSet <= 1) result.push([ x, y, belongsToSet ]);
+				// result.push([ x, y, belongsToSet ]);
 			}
 		}
 		return result;
@@ -44,16 +47,26 @@ class Fractal {
 		// console.log(this.fractalBody);
 
 		this.fractalBody.forEach((point) => {
-			// let [ x, y, belongsToSet ] = point;
-			// if (belongsToSet == 0) {
-			ctx.fillStyle = '#000';
-			ctx.fillRect(point[0] / 1000, point[1] / 600, 1 / 1000, 1 / 600); // Draw a black pixel
-			// debugger;
-			// } else {
-			// 	debugger;
-			// 	ctx.fillStyle = 'hsl(0, 100%, ' + belongsToSet + '%)';
-			// 	ctx.fillRect(x, y, 1, 1); // Draw a colorful pixel
-			// }
+			let belongsToSet = point[2];
+			if (belongsToSet == 0) {
+				ctx.fillStyle = '#000';
+				ctx.fillRect(
+					point[0] / 1000,
+					point[1] / 600,
+					1 / 1000,
+					1 / 600
+				); // Draw a black pixel
+				// debugger;
+			} else {
+				debugger;
+				ctx.fillStyle = 'hsl(50, 100%, ' + belongsToSet + '%)';
+				ctx.fillRect(
+					point[0] / 1000,
+					point[1] / 600,
+					1 / 1000,
+					1 / 600
+				); // Draw a colorful pixel
+			}
 		});
 	}
 }

@@ -32,7 +32,9 @@ const Equations = {
 		}
 
 		return 0;
-	}
+	},
+
+	checkIfBelongsToNovaSet() {}
 };
 
 module.exports = Equations;

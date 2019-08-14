@@ -18,27 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	let lastY = 0;
 
 	const handleMouseWheel = (e) => {
-		let x = widthView / 2 + xleftView;
-		let y = heightView / 2 + ytopView;
-
 		let scale = e.wheelDelta < 0 || e.detail > 0 ? 1.1 : 0.9;
-		widthView *= scale;
-		heightView *= scale;
-
-		if (widthView > widthViewOriginal || heightView > heightViewOriginal) {
-			widthView = widthViewOriginal;
-			heightView = heightViewOriginal;
-			x = widthView / 2;
-			y = heightView / 2;
-		}
-		Generator.widthView = widthView;
-		Generator.heightView = heightView;
-		// scale about center of view, rather than mouse position.
-		// debugger;
-		Generator.xleftView = x - widthView / 2;
-		Generator.ytopView = y - heightView / 2;
-		// debugger;
-		// generator.start();
+		Generator.scale = scale;
+		setTimeout(() => (Generator.scale = 1), 1000);
 		// debugger;
 	};
 
@@ -57,8 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (mouseDown) {
 			let dx = (X - lastX) / Generator.DIM_X * widthView;
 			let dy = (Y - lastY) / Generator.DIM_Y * heightView;
-			Generator.xleftView += dx;
-			Generator.ytopView += dy;
+			// Generator.xleftView += dx;
+			// Generator.ytopView += dy;
+			Generator.panX -= dx * 10;
+			Generator.panY -= dy * 10;
 			// debugger;
 		}
 		lastX = X;
